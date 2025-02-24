@@ -28,5 +28,7 @@ resource "docker_container" "containers" {
     internal = 80
     external = var.starting_port + count.index
   }
-}
 
+  entrypoint = ["/bin/sh", "-c"]
+  command    = ["rm -f /usr/share/nginx/html/index.html && echo $(hostname) > /usr/share/nginx/html/index.html && exec nginx -g 'daemon off;'"]
+}
